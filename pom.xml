@@ -2,23 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>org.mikotin</groupId>
-    <artifactId>google-signin</artifactId>
-    <version>1.0.1</version>
-    <name>Google Sign in component</name>
-    <description>Integration of google-signin for Vaadin 10</description>
-
+    <groupId>org.vaadin.addon</groupId>
+    <artifactId>joscha</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>OAuth-Login components</name>
+    <description>Integration of OAuth for Vaadin 10+</description>
     <properties>
-        <vaadin.version>10.0.2</vaadin.version>
-
+        <vaadin.version>[10.0.0,)</vaadin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <gson.version>2.8.5</gson.version>
+        <scribejava-apis.version>6.1.0</scribejava-apis.version>
     </properties>
     <organization>
-        <name>Mikko Salminen</name>
+        <name>Bernd Hopp</name>
     </organization>
     <licenses>
         <license>
@@ -27,18 +26,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-bom</artifactId>
-                <type>pom</type>
-                <scope>import</scope>
-                <version>${vaadin.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <repositories>
         <repository>
             <id>Vaadin Directory</id>
@@ -48,55 +35,39 @@
             <id>Vaadin prereleases</id>
             <url>http://maven.vaadin.com/vaadin-prereleases</url>
         </repository>
-        <!-- The bintray repository contain webjars immediately after generation. If the webjar is available
-             in Maven central, you do not need this repository -->
         <repository>
             <id>webjars</id>
             <url>https://dl.bintray.com/webjars/maven</url>
         </repository>
     </repositories>
-
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-core</artifactId>
+            <version>${vaadin.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
         </dependency>
-        <!-- The following dependency is generated using webjars.org. If 
-             it does not resolve, go to https://www.webjars.org and deploy it as "Bower GitHub"
-             -->
         <dependency>
-            <groupId>org.webjars.bowergithub.googlewebcomponents</groupId>
-            <artifactId>google-signin</artifactId>
-            <version>2.0.0</version>
+            <groupId>com.github.scribejava</groupId>
+            <artifactId>scribejava-apis</artifactId>
+            <version>${scribejava-apis.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.http-client/google-http-client -->
-        <dependency>
-            <groupId>com.google.http-client</groupId>
-            <artifactId>google-http-client</artifactId>
-            <version>1.23.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>1.23.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.9.5</version>
-        </dependency>
-
     </dependencies>
-
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -194,6 +165,7 @@
             </build>
         </profile>
     </profiles>
+    <packaging>jar</packaging>
 </project>
 
 

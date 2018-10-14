@@ -20,3 +20,5 @@ target/
 /build/
 /derby.log
 .idea/
+src/test/java/
+test/
