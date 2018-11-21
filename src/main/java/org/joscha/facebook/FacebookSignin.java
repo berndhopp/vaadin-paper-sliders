@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.joining;
 
 public class FacebookSignin extends AbstractSignin<FacebookUser, FacebookScope> {
 
-    public FacebookSignin(String apiKey, String apiSecret, String redirectUri, FacebookScope facebookScope) {
+    public FacebookSignin(String apiKey, String apiSecret, String redirectUri, FacebookScope... scopes) {
         super(
                 FacebookUser.class,
                 "https://graph.facebook.com/me?fields=name,email,birthday",
@@ -22,8 +22,10 @@ public class FacebookSignin extends AbstractSignin<FacebookUser, FacebookScope> 
                 FacebookApi.instance(),
                 redirectUri,
                 "https://www.facebook.com/v3.2/dialog/oauth",
-                facebookScope
+                scopes
         );
+
+        getElement().setAttribute("response-type", "token");
     }
 
     @Override

@@ -5,7 +5,7 @@
 
 <dom-module id="sign-in">
     <template>
-        <vaadin-button on-click="_click" on-oauth-success="onSignin" id="button">
+        <vaadin-button on-click="_click" id="button">
         </vaadin-button>
     </template>
     <script>
@@ -50,17 +50,26 @@
                             reflectToAttribute: true,
                             notify:true,
                         },
+                        responseType: {
+                            type: String,
+                            reflectToAttribute: true,
+                            notify:true,
+                        }
                     };
                 }
 
                 _click(){
-                    let client = new jso.JSO({
-                         providerID: this.providerId,
-                         client_id: this.clientId,
-                         redirect_uri: (this.redirectUri || 'http://localhost:8080') + '/frontend/addon/joscha/popupCallback.html',
-                         authorization: this.authorization,
-                         scopes: { request: JSON.parse(this.scopes)}
-                     });
+                    let conf = {
+                        providerID: this.providerId,
+                        client_id: this.clientId,
+                        redirect_uri: (this.redirectUri || 'http://localhost:8080') + '/frontend/addon/joscha/popupCallback.html',
+                        authorization: this.authorization
+                    };
+
+                    if (this.responseType) conf.response_type = this.responseType;
+                    if (this.scopes) conf.scopes = { request: JSON.parse(this.scopes)};
+
+                    let client = new jso.JSO(conf);
 
                     client.callback();
                     client.setLoader(jso.Popup);

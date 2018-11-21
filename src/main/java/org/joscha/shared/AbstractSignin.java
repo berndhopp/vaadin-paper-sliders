@@ -70,7 +70,10 @@ public abstract class AbstractSignin<USER, SCOPE> extends PolymerTemplate<Templa
         getElement().setAttribute("client-id", clientId);
         getElement().setAttribute("redirect-uri", redirectUri);
         getElement().setAttribute("authorization", authorization);
-        getElement().setAttribute("scopes", GSON.toJson(stream(scopes).map(Object::toString).collect(toSet())));
+
+        if(scopes.length != 0){
+            getElement().setAttribute("scopes", GSON.toJson(stream(scopes).map(Object::toString).collect(toSet())));
+        }
     }
 
     /**
