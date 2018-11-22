@@ -42,6 +42,7 @@ public abstract class AbstractSignin<USER, SCOPE> extends PolymerTemplate<Templa
     private final OAuth20Service oAuth20Service;
     @Id("button")
     private Button button;
+
     protected AbstractSignin(Class<USER> userClass, String requestUrl, String clientId, String apiSecret, String providerId, BaseApi<OAuth20Service> baseApi, String redirectUri, String authorization, SCOPE... scopes) {
         requireNonNull(userClass);
         requireNonNull(requestUrl);
@@ -71,7 +72,7 @@ public abstract class AbstractSignin<USER, SCOPE> extends PolymerTemplate<Templa
         getElement().setAttribute("redirect-uri", redirectUri);
         getElement().setAttribute("authorization", authorization);
 
-        if(scopes.length != 0){
+        if (scopes.length != 0) {
             getElement().setAttribute("scopes", GSON.toJson(stream(scopes).map(Object::toString).collect(toSet())));
         }
     }
@@ -88,7 +89,7 @@ public abstract class AbstractSignin<USER, SCOPE> extends PolymerTemplate<Templa
      * necessary for the chosen {@link BaseApi}, otherwise an {@link Optional} containing {@link
      * Collector} to concatenate {@link SCOPE}s as expected with this {@link BaseApi}.
      */
-    protected Optional<Collector<CharSequence, ?, String>> optionalScopeCollector(){
+    protected Optional<Collector<CharSequence, ?, String>> optionalScopeCollector() {
         return Optional.empty();
     }
 

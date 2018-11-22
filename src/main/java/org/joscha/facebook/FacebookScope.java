@@ -1,7 +1,10 @@
 package org.joscha.facebook;
 
 public enum FacebookScope {
-    NAME("name"), EMAIL("email"), BIRTHDAY("birthday");
+    NAME("name"),
+    EMAIL("email"),
+    BIRTHDAY("user_birthday"),
+    GENDER("user_gender");
 
     private final String stringRepresentation;
 
