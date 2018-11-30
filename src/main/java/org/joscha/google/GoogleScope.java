@@ -1,6 +1,7 @@
 package org.joscha.google;
 
 public enum GoogleScope {
+    EMAIL("email"),
     PROFILE("https://www.googleapis.com/auth/userinfo.profile");
 
     private final String stringRepresentation;

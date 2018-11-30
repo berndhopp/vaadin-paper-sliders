@@ -1,13 +1,15 @@
 package org.joscha.google;
 
+import java.util.List;
+
 public class GoogleUser {
 
     private String id;
-    private String email;
     private String pictureUrl;
     private String displayName;
     private String gender;
     private Image image;
+    private List<Email> emails;
 
     public GoogleUser() {
     }
@@ -36,14 +38,6 @@ public class GoogleUser {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPictureUrl() {
         return pictureUrl;
     }
@@ -60,6 +54,14 @@ public class GoogleUser {
         this.displayName = displayName;
     }
 
+    public List<Email> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
+    }
+
     public static class Image {
         private String url;
 
@@ -69,6 +71,27 @@ public class GoogleUser {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+    }
+
+    public static class Email {
+        private String value;
+        private String type;
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
     }
 }
