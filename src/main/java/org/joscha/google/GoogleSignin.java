@@ -4,14 +4,14 @@ import com.github.scribejava.apis.GoogleApi20;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.VaadinIcon;
 
-import org.joscha.shared.AbstractSignin;
+import org.joscha.shared.AbstractOAuth2Signin;
 
 import java.util.Optional;
 import java.util.stream.Collector;
 
 import static java.util.stream.Collectors.joining;
 
-public class GoogleSignin extends AbstractSignin<GoogleUser, GoogleScope> {
+public class GoogleSignin extends AbstractOAuth2Signin<GoogleUser, GoogleScope> {
 
     public GoogleSignin(String clientId, String clientSecret, String redirectUri) {
         this(clientId, clientSecret, redirectUri, GoogleScope.PROFILE);

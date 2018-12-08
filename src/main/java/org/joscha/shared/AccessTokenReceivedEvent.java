@@ -5,7 +5,7 @@ import com.vaadin.flow.component.DomEvent;
 import com.vaadin.flow.component.EventData;
 
 @DomEvent("oauth-success")
-public class AccessTokenReceivedEvent extends ComponentEvent<AbstractSignin> {
+public class AccessTokenReceivedEvent extends ComponentEvent<AbstractOAuth2Signin> {
     private final String accessToken;
 
     /**
@@ -15,7 +15,7 @@ public class AccessTokenReceivedEvent extends ComponentEvent<AbstractSignin> {
      * @param source     the source component
      * @param fromClient <code>true</code> if the event originated from the client
      */
-    public AccessTokenReceivedEvent(AbstractSignin source, boolean fromClient, @EventData("event.detail.token.access_token") String accessToken) {
+    public AccessTokenReceivedEvent(AbstractOAuth2Signin source, boolean fromClient, @EventData("event.detail.token.access_token") String accessToken) {
         super(source, fromClient);
         this.accessToken = accessToken;
     }

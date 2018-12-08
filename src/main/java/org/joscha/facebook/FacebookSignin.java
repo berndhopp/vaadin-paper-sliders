@@ -4,9 +4,9 @@ import com.github.scribejava.apis.FacebookApi;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.VaadinIcon;
 
-import org.joscha.shared.AbstractSignin;
+import org.joscha.shared.AbstractOAuth2Signin;
 
-public class FacebookSignin extends AbstractSignin<FacebookUser, FacebookScope> {
+public class FacebookSignin extends AbstractOAuth2Signin<FacebookUser, FacebookScope> {
 
     public FacebookSignin(String apiKey, String apiSecret, String redirectUri, FacebookScope... scopes) {
         super(
