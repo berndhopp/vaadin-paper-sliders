@@ -14,6 +14,7 @@ import com.vaadin.flow.component.polymertemplate.Id;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collector;
@@ -27,15 +28,24 @@ import static java.util.stream.Collectors.toSet;
 public abstract class AbstractOAuth2Signin<USER, SCOPE> extends AbstractSignin<USER> {
 
     private final OAuth20Service oAuth20Service;
-    protected final String requestUrl;
+    private final String requestUrl;
 
     @Id("button")
-    protected Button button;
+    private Button button;
 
+    @SafeVarargs
     protected AbstractOAuth2Signin(Class<USER> userClass, String requestUrl, String clientId, String apiSecret, String providerId, BaseApi<OAuth20Service> baseApi, String redirectUri, String authorization, SCOPE... scopes) {
         super(userClass);
 
+        requireNonNull(requestUrl);
+        requireNonNull(clientId);
+        requireNonNull(clientId);
         requireNonNull(baseApi);
+        requireNonNull(apiSecret);
+        requireNonNull(providerId);
+        requireNonNull(redirectUri);
+        requireNonNull(authorization);
+        stream(scopes).forEach(Objects::requireNonNull);
 
         final ServiceBuilder serviceBuilder = new ServiceBuilder(clientId).apiSecret(apiSecret);
 
@@ -48,7 +58,7 @@ public abstract class AbstractOAuth2Signin<USER, SCOPE> extends AbstractSignin<U
 
         this.oAuth20Service = configureServiceBuilder(serviceBuilder).build(baseApi);
 
-        addListener(AccessTokenReceivedEvent.class, e -> onSignin(e.getAccessToken()));
+        addListener(AccessTokenReceivedEvent.class, e -> onAccessTokenReceived(e.getAccessToken()));
 
         getElement().setAttribute("provider-id", providerId);
         getElement().setAttribute("client-id", clientId);
@@ -100,7 +110,7 @@ public abstract class AbstractOAuth2Signin<USER, SCOPE> extends AbstractSignin<U
         configureButton(button);
     }
 
-    void onSignin(String accessToken) {
+    private void onAccessTokenReceived(String accessToken) {
         requireNonNull(accessToken);
 
         OAuthRequest request = new OAuthRequest(Verb.GET, requestUrl);
