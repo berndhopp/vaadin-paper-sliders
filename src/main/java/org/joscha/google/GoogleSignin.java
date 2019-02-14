@@ -1,6 +1,7 @@
 package org.joscha.google;
 
 import com.github.scribejava.apis.GoogleApi20;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.VaadinIcon;
 
@@ -32,13 +33,15 @@ public class GoogleSignin extends AbstractOAuth2Signin<GoogleUser, GoogleScope> 
     }
 
     @Override
-    protected void configureButton(Button button) {
-        button.setText("Login with Google");
-        button.setIcon(VaadinIcon.GOOGLE_PLUS.create());
+    protected Optional<Collector<CharSequence, ?, String>> optionalScopeCollector() {
+        return Optional.of(joining(","));
     }
 
     @Override
-    protected Optional<Collector<CharSequence, ?, String>> optionalScopeCollector() {
-        return Optional.of(joining(","));
+    protected Component createComponent() {
+        Button button = new Button();
+        button.setText("Login with Google");
+        button.setIcon(VaadinIcon.GOOGLE_PLUS.create());
+        return button;
     }
 }

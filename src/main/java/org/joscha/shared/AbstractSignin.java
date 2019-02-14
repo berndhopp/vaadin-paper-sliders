@@ -2,7 +2,6 @@ package org.joscha.shared;
 
 import com.google.gson.Gson;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.templatemodel.TemplateModel;
@@ -50,9 +49,4 @@ public abstract class AbstractSignin<USER> extends PolymerTemplate<TemplateModel
         loginListeners.add(listener);
         return () -> loginListeners.remove(listener);
     }
-
-    /**
-     * configure the button to have the desired look & feel
-     */
-    protected abstract void configureButton(Button button);
 }

@@ -7,9 +7,10 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.Id;
 
 import java.io.IOException;
@@ -30,8 +31,8 @@ public abstract class AbstractOAuth2Signin<USER, SCOPE> extends AbstractSignin<U
     private final OAuth20Service oAuth20Service;
     private final String requestUrl;
 
-    @Id("button")
-    private Button button;
+    @Id("div")
+    private Div div;
 
     @SafeVarargs
     protected AbstractOAuth2Signin(Class<USER> userClass, String requestUrl, String clientId, String apiSecret, String providerId, BaseApi<OAuth20Service> baseApi, String redirectUri, String authorization, SCOPE... scopes) {
@@ -107,8 +108,10 @@ public abstract class AbstractOAuth2Signin<USER, SCOPE> extends AbstractSignin<U
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
-        configureButton(button);
+        div.add(createComponent());
     }
+
+    protected abstract Component createComponent();
 
     private void onAccessTokenReceived(String accessToken) {
         requireNonNull(accessToken);
