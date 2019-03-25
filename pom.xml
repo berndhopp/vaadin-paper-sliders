@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.vaadin.addon</groupId>
     <artifactId>joscha</artifactId>
-    <version>1.0.0-ALPHA2</version>
+    <version>1.0.0-B1</version>
     <name>OAuth-Login components</name>
     <description>Integration of OAuth for Vaadin 10+</description>
     <properties>

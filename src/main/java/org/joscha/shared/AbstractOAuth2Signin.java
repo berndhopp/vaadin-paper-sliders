@@ -31,7 +31,7 @@ public abstract class AbstractOAuth2Signin<USER, SCOPE> extends AbstractSignin<U
     private final OAuth20Service oAuth20Service;
     private final String requestUrl;
 
-    @Id("div")
+    @Id("cont")
     private Div div;
 
     @SafeVarargs
