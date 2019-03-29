@@ -1,0 +1,17 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html"/>
+
+<dom-module id="vaadin-paper-slider">
+    <template>
+        <paper-slider on-value-change="onValueChanged" min="{{min}}" max="{{max}}" value="{{value}}"></paper-slider>
+    </template>
+    <script>
+        class VaadinPaperSlider extends Polymer.Element {
+            static get is() {
+                return 'vaadin-paper-slider';
+            }
+        }
+        customElements.define(VaadinPaperSlider.is, VaadinPaperSlider);
+    </script>
+</dom-module>
+
