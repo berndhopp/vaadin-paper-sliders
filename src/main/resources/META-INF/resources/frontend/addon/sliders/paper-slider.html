@@ -3,7 +3,7 @@
 
 <dom-module id="vaadin-paper-slider">
     <template>
-        <paper-slider on-value-change="onValueChanged" min="{{min}}" max="{{max}}" value="{{value}}"></paper-slider>
+        <paper-slider on-value-change="onValueChanged" min="[[min]]" max="[[max]]" value="{{value}}"></paper-slider>
     </template>
     <script>
         class VaadinPaperSlider extends Polymer.Element {
