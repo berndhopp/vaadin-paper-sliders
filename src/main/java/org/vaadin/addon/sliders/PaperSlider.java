@@ -4,6 +4,7 @@ import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.shared.Registration;
@@ -20,7 +21,8 @@ import static java.util.Objects.requireNonNull;
  * {@see https://vaadin.com/directory/component/polymerelementspaper-slider/overview}
  */
 @Tag("vaadin-paper-slider")
-@HtmlImport("addon/sliders/paper-slider.html")
+// @HtmlImport("./addon/sliders/paper-slider.html")
+@JsModule("./addon/sliders/paper-slider.js")
 public class PaperSlider extends PolymerTemplate<PaperSlider.SliderModel> implements HasValue<AbstractField.ComponentValueChangeEvent<PaperSlider, Integer>, Integer> {
 
     private final List<ValueChangeListener<? super AbstractField.ComponentValueChangeEvent<PaperSlider, Integer>>> listeners = new ArrayList<>();

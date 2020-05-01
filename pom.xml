@@ -8,17 +8,36 @@
     <name>Paper-Slider components</name>
     <description>Integration of Paper-Slider components for Vaadin 10+</description>
     <properties>
-        <vaadin.version>[10.0.0,)</vaadin.version>
+
+        <!-- <vaadin.version>[10.0.0,)</vaadin.version> -->
+        <vaadin.version>14.1.25</vaadin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <jetty.version>9.4.15.v20190215</jetty.version>
+
         <paper-slider.version>2.0.9</paper-slider.version>
         <paper-range-slider.version>1.0.4</paper-range-slider.version>
     </properties>
+
     <organization>
         <name>Bernd Hopp</name>
     </organization>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <type>pom</type>
+                <scope>import</scope>
+                <version>${vaadin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <licenses>
         <license>
             <name>Apache 2</name>
@@ -26,6 +45,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
     <repositories>
         <repository>
             <id>Vaadin Directory</id>
@@ -39,14 +59,66 @@
             <id>webjars</id>
             <url>https://dl.bintray.com/webjars/maven</url>
         </repository>
+
+        <!-- Repository needed for the snapshot versions of Vaadin -->
+        <repository>
+            <id>vaadin-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+        </repository>
     </repositories>
+
+    <pluginRepositories>
+        <!-- Repository needed for prerelease versions of Vaadin -->
+        <pluginRepository>
+            <id>Vaadin prereleases</id>
+            <url>https://maven.vaadin.com/vaadin-prereleases</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>vaadin-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-core</artifactId>
-            <version>${vaadin.version}</version>
-            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.vaadin.webjar</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.insites</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.polymer</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.polymerelements</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.vaadin</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bowergithub.webcomponents</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.vaadin</groupId>-->
+<!--            <artifactId>vaadin-core</artifactId>-->
+<!--            <version>${vaadin.version}</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.webjars.bowergithub.polymerelements</groupId>
             <artifactId>paper-slider</artifactId>
@@ -58,6 +130,7 @@
             <version>${paper-range-slider.version}</version>
         </dependency>
     </dependencies>
+
     <build>
         <resources>
             <resource>
@@ -67,6 +140,7 @@
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -85,6 +159,97 @@
                     </archive>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-maven-plugin</artifactId>
+                <version>${vaadin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-frontend</goal>
+                            <goal>build-frontend</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <!--                    <reload>manual</reload>-->
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <!-- Use test scope because the UI/demo classes are in
+                            the test package. -->
+                    <useTestScope>true</useTestScope>
+                    <supportedPackagings>
+                        <supportedPackaging>jar</supportedPackaging>
+                    </supportedPackagings>
+                    <webApp>
+                        <resourceBases>
+                            <resourceBase>${project.basedir}/src/main/resources/META-INF/resources</resourceBase>
+                            <resourceBase>${project.basedir}/src/test/resources/</resourceBase>
+                        </resourceBases>
+                    </webApp>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>.</directory>
+                            <includes>
+                                <include>package.json</include>
+                                <include>package-lock.json</include>
+                                <include>webpack.config.js</include>
+                                <include>webpack.generated.js</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>./node_modules</directory>
+                            <includes>
+                                <include>**/**</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>./src/main/webapp/WEB-INF</directory>
+                            <includes>
+                                <include>classes/**/**</include>
+                                <include>lib/**/**</include>
+                            </includes>
+                            <excludes>
+                                <exclude>web.xml</exclude>
+                                <exclude>.gitignore</exclude>
+                            </excludes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <!--                            <attachClasses>true</attachClasses>-->
+                            <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+                        </configuration>
+                        <goals>
+                            <goal>inplace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -150,5 +315,3 @@
     </profiles>
     <packaging>jar</packaging>
 </project>
-
-
