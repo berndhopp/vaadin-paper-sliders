@@ -1,0 +1,27 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-range-slider/paper-range-slider.html"/>
+
+<dom-module id="vaadin-paper-range-slider">
+    <template>
+        <paper-range-slider
+                always-show-pin="[[alwaysShowPin]]"
+                on-change="onValueChanged"
+                min="[[min]]"
+                max="[[max]]"
+                value-min="{{lowerValue}}"
+                value-max="{{upperValue}}"
+                value-diff-min="[[valueDiffMin]]"
+                value-diff-max="[[valueDiffMax]]"
+        >
+        </paper-range-slider>
+    </template>
+    <script>
+        class VaadinPaperRangeSlider extends Polymer.Element {
+            static get is() {
+                return 'vaadin-paper-range-slider';
+            }
+        }
+        customElements.define(VaadinPaperRangeSlider.is, VaadinPaperRangeSlider);
+    </script>
+</dom-module>
+

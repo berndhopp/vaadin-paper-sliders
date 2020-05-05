@@ -1,16 +1,18 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import '@polymer/polymer/polymer-element.js';
+import '@polymer/paper-slider/paper-slider.js'
 import {html} from '@polymer/polymer/lib/utils/html-tag.js';
-import {slider} from '@polymer/polymer/paper-slider/paper-slider.html';
-import {rangeslider} from '@polymer/polymer/paper-slider/paper-range-slider.html';
-
-
-// Based on https://github.com/appreciated/apexcharts-flow/blob/master/src/main/resources/META-INF/resources/frontend/com/github/appreciated/apexcharts/apexcharts-wrapper.js
+import {PolymerElement} from "@polymer/polymer";
 
 class VaadinPaperSlider extends PolymerElement {
 
     static get template() {
-        return slider`
-        <slot></slot>
+        return html`
+        <paper-slider 
+            on-value-change="onValueChanged" 
+            min="[[min]]" 
+            max="[[max]]" 
+            value="{{value}}">    
+        </paper-slider>
     `;
     }
 
@@ -53,3 +55,21 @@ class VaadinPaperSlider extends PolymerElement {
 
 customElements.define(VaadinPaperSlider.is, VaadinPaperSlider);
 export {VaadinPaperSlider};
+
+// // <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+// // <link rel="import" href="../../bower_components/paper-slider/paper-slider.html"/>
+//
+// <dom-module id="vaadin-paper-slider">
+//     <template>
+//         <paper-slider on-value-change="onValueChanged" min="[[min]]" max="[[max]]" value="{{value}}"></paper-slider>
+//     </template>
+//     <script>
+//         class VaadinPaperSlider extends Polymer.Element {
+//             static get is() {
+//                 return 'vaadin-paper-slider';
+//             }
+//         }
+//         customElements.define(VaadinPaperSlider.is, VaadinPaperSlider);
+//     </script>
+// </dom-module>
+//

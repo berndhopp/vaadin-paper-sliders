@@ -4,6 +4,8 @@ import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.shared.Registration;
@@ -15,13 +17,16 @@ import java.util.List;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
+// NOTE: The paper-range-slider is defined in paper-range-slider.html; it only supports Polymer 2.x.
 /**
  * A slider with a lower and upper value
  *
  * {@see https://vaadin.com/directory/component/iftachsadehpaper-range-slider}
  */
-@Tag("vaadin-paper-range-slider")
-@HtmlImport("addon/sliders/paper-range-slider.html")
+// @Tag("vaadin-paper-range-slider")
+// @HtmlImport("./addon/sliders/paper-slider.html")
+// @JsModule("./addon/sliders/paper-range-slider.js")
+// @NpmPackage(value = "@paper-range-slider", version = "^3.0.0")
 public class PaperRangeSlider extends PolymerTemplate<PaperRangeSlider.RangeSliderModel> implements HasValue<AbstractField.ComponentValueChangeEvent<PaperRangeSlider, PaperRangeSlider.IntRange>, PaperRangeSlider.IntRange> {
 
     private IntRange oldValue;
