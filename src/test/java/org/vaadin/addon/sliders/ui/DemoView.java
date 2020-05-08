@@ -34,11 +34,6 @@ public class DemoView extends VerticalLayout
         whiteline.setHeight("50px");
         add(whiteline);
 
-        add(new Label("This examples shows the paper-slider in Vaadin 14. "));
-        add(new Label("Issues / work remaining:"));
-        add(new Label("- HasSize is not supported"));
-
-
         // NB: The PaperRangeSlider does not support Polymer 3.
 
 //        HorizontalLayout rangeSliderLine = new HorizontalLayout();
