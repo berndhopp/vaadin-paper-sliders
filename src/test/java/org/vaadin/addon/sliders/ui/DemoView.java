@@ -1,6 +1,7 @@
 package org.vaadin.addon.sliders.ui;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -17,7 +18,14 @@ public class DemoView extends VerticalLayout
 
     public DemoView()
     {
-        add(new H3("Paper-slider, ported to Vaadin v14"));
+        Anchor sourceLink = new Anchor("https://github.com/markhm/vaadin-paper-sliders", " (source code on GitHub)");
+        sourceLink.setTarget("_blank");
+
+        HorizontalLayout titleBox = new HorizontalLayout();
+        titleBox.setAlignItems(Alignment.BASELINE);
+        H3 title = new H3("Vaadin paper-slider, ported to Vaadin v14");
+        titleBox.add(title, sourceLink);
+        add(titleBox);
 
         sliderValue = new Label("Slider value");
 
