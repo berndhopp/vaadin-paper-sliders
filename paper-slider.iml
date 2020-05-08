@@ -78,7 +78,7 @@
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-app-layout-flow:2.0.5" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-context-menu-flow:3.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-menu-bar-flow:1.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.bowergithub.polymerelements:paper-slider:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bowergithub.polymerelements:paper-slider:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.iftachsadeh:paper-range-slider:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.polymerelements:paper-styles:2.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.polymerelements:font-roboto:1.1.0" level="project" />
