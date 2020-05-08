@@ -6,6 +6,7 @@
     <groupId>org.vaadin.addon</groupId>
     <artifactId>paper-slider</artifactId>
     <version>1.0.1</version>
+    <packaging>jar</packaging>
 
     <name>Paper-Slider components</name>
     <description>Integration of Paper-Slider components for Vaadin 10+</description>
@@ -132,10 +133,10 @@
     <build>
         <resources>
             <resource>
-                <directory>src/main/java</directory>
+                <directory>${project.basedir}/src/main/java</directory>
             </resource>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>${project.basedir}/src/main/resources</directory>
             </resource>
         </resources>
 
@@ -192,6 +193,63 @@
                         </resourceBases>
                     </webApp>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>.</directory>
+                            <includes>
+                                <include>package.json</include>
+                                <include>package-lock.json</include>
+                                <include>webpack.config.js</include>
+                                <include>webpack.generated.js</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>./node_modules</directory>
+                            <includes>
+                                <include>**/**</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>./src/main/webapp/WEB-INF</directory>
+                            <includes>
+                                <include>classes/**/**</include>
+                                <include>lib/**/**</include>
+                            </includes>
+                            <excludes>
+                                <exclude>web.xml</exclude>
+                                <exclude>.gitignore</exclude>
+                            </excludes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>process-test-classes</phase>
+                        <configuration>
+                            <target>
+                                <copy todir="${basedir}/target/classes">
+                                    <fileset dir="${basedir}/target/test-classes" includes="**/*" />
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -310,6 +368,35 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <vaadin.productionMode>true</vaadin.productionMode>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.vaadin</groupId>
+                    <artifactId>flow-server-production-mode</artifactId>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.vaadin</groupId>
+                        <artifactId>vaadin-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>build-frontend</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
-    <packaging>jar</packaging>
+
 </project>
