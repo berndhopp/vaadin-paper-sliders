@@ -1,24 +1,17 @@
-*.class
+# Created by .ignore support plugin (hsz.mobi)
+/.idea/
+/target/
+/out/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+/package.json
+/package-lock.json
+/node_modules
+webpack.config.js
+webpack.generated.js
+tsconfig.json
 
-# Package Files #
-*.jar
-*.war
-*.ear
+dependency_tree.txt
 
-*.iml
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-target/
-/.settings/
-/.classpath
-/.project
-/.springBeans
-/build/
-/derby.log
-.idea/
-src/test/java/
-test/
+_sokrates/reports
+src/main/resources/mapbox_default.properties
+/src/test/resources/personal/

@@ -1,9 +1,12 @@
 package org.vaadin.addon.sliders;
 
 import com.vaadin.flow.component.AbstractField;
+import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.shared.Registration;
@@ -20,8 +23,9 @@ import static java.util.Objects.requireNonNull;
  * {@see https://vaadin.com/directory/component/polymerelementspaper-slider/overview}
  */
 @Tag("vaadin-paper-slider")
-@HtmlImport("addon/sliders/paper-slider.html")
-public class PaperSlider extends PolymerTemplate<PaperSlider.SliderModel> implements HasValue<AbstractField.ComponentValueChangeEvent<PaperSlider, Integer>, Integer> {
+@JsModule("./addon/sliders/paper-slider.js")
+@NpmPackage(value = "@polymer/paper-slider", version = "^3.0.1")
+public class PaperSlider extends PolymerTemplate<PaperSlider.SliderModel> implements HasValue<AbstractField.ComponentValueChangeEvent<PaperSlider, Integer>, Integer>, HasSize {
 
     private final List<ValueChangeListener<? super AbstractField.ComponentValueChangeEvent<PaperSlider, Integer>>> listeners = new ArrayList<>();
     private int oldValue;
@@ -74,7 +78,6 @@ public class PaperSlider extends PolymerTemplate<PaperSlider.SliderModel> implem
         if (min >= getMax() || min < 0) {
             throw new IllegalArgumentException();
         }
-
         getModel().setMin(min);
     }
 
